@@ -10,7 +10,6 @@ typedef struct node
 } nd;
 
 struct node *root = NULL;
-struct node *tree = NULL;
 
 nd *createnode(int data)
 {
@@ -137,6 +136,15 @@ struct node *deleteElement(struct node *tree, int val)
     free(cur);
     return tree;
 }
+int countNodes(nd *treeRoot, int sum)
+{
+    if (treeRoot == NULL)
+        return sum;
+    sum++;
+    sum = countNodes(treeRoot->left, sum);
+    sum = countNodes(treeRoot->right, sum);
+    return sum;
+}
 int main()
 {
     int data;
@@ -178,10 +186,10 @@ int main()
             scanf("%d", &data);
             nd *temp = deleteElement (root, data);
             break;
-        // case 5:
-        //     data = countNodes(rootm, 0);
-        //     printf("%d  : ", data);
-        //     break;
+        case 5:
+            data = countNodes(root, 0);
+            printf("%d  : ", data);
+            break;
         case 6:
             exit(0);
             break;
